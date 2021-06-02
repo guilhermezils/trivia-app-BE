@@ -1,3 +1,13 @@
+Game.destroy_all
+Game.reset_pk_sequence
+
+Team.destroy_all
+Team.reset_pk_sequence
+
+Player.destroy_all
+Player.reset_pk_sequence
+
+
 
 # TEAMS ----- GAME-----Players          ---X----    TRIVIA_Questions
 # TEAMS: Team 1 (players), Team 2 (Players)
@@ -9,7 +19,7 @@
 Team.create(name: "Red")
 Team.create(name: "Blue")
 
-20.times do
+8.times do
   Player.create(name:" ") 
 end
 
@@ -17,38 +27,27 @@ Game.create(team_id: 1, player_id:1)
 Game.create(team_id: 1, player_id:2)
 Game.create(team_id: 1, player_id:3)
 Game.create(team_id: 1, player_id:4)
-Game.create(team_id: 1, player_id:5)
-Game.create(team_id: 1, player_id:6)
-Game.create(team_id: 1, player_id:7)
-Game.create(team_id: 1, player_id:8)
-Game.create(team_id: 1, player_id:9)
-Game.create(team_id: 1, player_id:10)
-Game.create(team_id: 2, player_id:11)
-Game.create(team_id: 2, player_id:12)
-Game.create(team_id: 2, player_id:13)
-Game.create(team_id: 2, player_id:14)
-Game.create(team_id: 2, player_id:15)
-Game.create(team_id: 2, player_id:16)
-Game.create(team_id: 2, player_id:17)
-Game.create(team_id: 2, player_id:18)
-Game.create(team_id: 2, player_id:19)
-Game.create(team_id: 2, player_id:20)
+Game.create(team_id: 2, player_id:5)
+Game.create(team_id: 2, player_id:6)
+Game.create(team_id: 2, player_id:7)
+Game.create(team_id: 2, player_id:8)
 
 
 
 
-# def request_api(url)
-#     response = Excon.get(
-#       url,
-#       headers: {
-#         'Host' => URI.parse(url).host
-#       }
-#     )
-#     return nil if response.status != 200
-#     parsed = JSON.parse(response.body)
-#     new_array = parsed.map { |question| question }#[0] # looks like ["meals", [{recipe 1},{recipe 2}]]  
-#     new_array[1]
-# end
+
+def request_api(url)
+    response = Excon.get(
+      url,
+      headers: {
+        'Host' => URI.parse(url).host
+      }
+    )
+    return nil if response.status != 200
+    parsed = JSON.parse(response.body)
+    new_array = parsed.map { |question| question }#[0] # looks like ["meals", [{recipe 1},{recipe 2}]]  
+    new_array[1]
+end
 
 
 #1. One trivia question:
@@ -66,6 +65,8 @@ def find_questions(amount) #only up to 50
     "https://opentdb.com/api.php?amount=#{amount}"
     )
 end
+
+
 
 #2. Categories
 
