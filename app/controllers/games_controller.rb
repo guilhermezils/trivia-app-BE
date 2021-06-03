@@ -5,7 +5,7 @@ class GamesController < ApplicationController
   def index
     @games = Game.all
 
-    render json: @games
+    render json: @games, except: [:created_at, :updated_at]
   end
 
   # GET /games/1
@@ -47,5 +47,6 @@ class GamesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def game_params
       params.require(:game).permit(:team_id_id, :player_id_id)
+      #find out why it is showing id_id (Guilherme)
     end
 end

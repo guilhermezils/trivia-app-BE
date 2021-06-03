@@ -9,15 +9,8 @@ Player.reset_pk_sequence
 
 
 
-# TEAMS ----- GAME-----Players          ---X----    TRIVIA_Questions
-# TEAMS: Team 1 (players), Team 2 (Players)
-# GAME:
-# Team1_id + Score
-# Team2_id + Score
-
-
-Team.create(name: "Red")
-Team.create(name: "Blue")
+Team.create(name: " ", score: 0)
+Team.create(name: " ", score: 0)
 
 8.times do
   Player.create(name:" ") 
@@ -36,19 +29,19 @@ Game.create(team_id: 2, player_id:8)
 
 
 
-def request_api(url)
-    response = Excon.get(
-      url,
-      headers: {
-        'Host' => URI.parse(url).host
-      }
-    )
-    return nil if response.status != 200
-    parsed = JSON.parse(response.body)
-    new_array = parsed.map { |question| question }#[0] # looks like ["meals", [{recipe 1},{recipe 2}]]  
-    new_array[1]
-end
-
+# def request_api(url)
+#     response = Excon.get(
+#       url,
+#       headers: {
+#         'Host' => URI.parse(url).host
+#       }
+#     )
+#     return nil if response.status != 200
+#     parsed = JSON.parse(response.body)
+#     new_array = parsed.map {|question| question}[1]
+#     puts new_array
+#   end
+  
 
 #1. One trivia question:
 #   "results":[{"category":"Entertainment: Books",
@@ -58,48 +51,27 @@ end
 #   "correct_answer":"549 Days",
 #   "incorrect_answers":["765 Days","401 Days","324 Days"]}
 
+# def token
+#   token = "https://opentdb.com/api_token.php?command=request"
+# end
 
-
-def find_questions(amount) #only up to 50
-    request_api(
-    "https://opentdb.com/api.php?amount=#{amount}"
-    )
-end
-
-
-
-#2. Categories
-
-# {"trivia_categories":[{"id":9,"name":"General Knowledge"},
-# {"id":10,"name":"Entertainment: Books"},
-# {"id":11,"name":"Entertainment: Film"},
-# {"id":12,"name":"Entertainment: Music"},
-# {"id":13,"name":"Entertainment: Musicals & Theatres"},
-# {"id":14,"name":"Entertainment: Television"},
-# {"id":15,"name":"Entertainment: Video Games"},
-# {"id":16,"name":"Entertainment: Board Games"},
-# {"id":17,"name":"Science & Nature"},
-# {"id":18,"name":"Science: Computers"},
-# {"id":19,"name":"Science: Mathematics"},
-# {"id":20,"name":"Mythology"},
-# {"id":21,"name":"Sports"},
-# {"id":22,"name":"Geography"},
-# {"id":23,"name":"History"},
-# {"id":24,"name":"Politics"},
-# {"id":25,"name":"Art"},
-# {"id":26,"name":"Celebrities"},
-# {"id":27,"name":"Animals"},
-# {"id":28,"name":"Vehicles"},
-# {"id":29,"name":"Entertainment: Comics"},
-# {"id":30,"name":"Science: Gadgets"},
-# {"id":31,"name":"Entertainment: Japanese Anime & Manga"},
-# {"id":32,"name":"Entertainment: Cartoon & Animations"}]}
-
-# def get_categories()
+# def get_questions #only up to 50
 #     request_api(
-#         "https://opentdb.com/api_category.php"
+#     "https://opentdb.com/api.php?amount=10&9ab50eaf47b21fb8f88c48ced2eb37aae307a1a115a5cf3f2aa00fadeb3be984"
 #     )
 # end
 
-# puts "Getting the Categories!"
+
+# questions = get_questions
+# questions.each do |recipe|
+            
+#   question_entry = Question.create(
+#     category: category["category"], 
+#     type: type["type"], 
+#     difficulty: difficulty["difficulty"], 
+#     question: question["question"],
+#     correct_answer: correct_answer["correct_answer"],
+#     incorrect_answers: incorrect_answers["incorrect_answers"]
+#    )
+
 
